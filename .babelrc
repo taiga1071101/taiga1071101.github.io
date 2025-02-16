@@ -1,0 +1,7 @@
+// Reactと最新のJavaScriptをトランスパイルできるように
+{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react"
+  ]
+}
