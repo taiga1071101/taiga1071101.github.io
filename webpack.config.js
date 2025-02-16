@@ -1,5 +1,7 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
+import webpackNodeExternals from 'webpack-node-externals';
+import MiniCssExtractPlugin  from 'mini-css-extract-plugin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -12,6 +14,7 @@ export default {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
+    publicPath: '/',
     chunkFormat: "module",
     library: {
       type: 'module',  // モジュール形式でライブラリを出力
@@ -21,8 +24,25 @@ export default {
   experiments: {
     outputModule: true,  // モジュールとして出力
   },
+  externals: [
+    webpackNodeExternals({
+      importType: 'module', // `import express from 'express'` の形でバンドルする
+    }),
+  ],
   module: {
     rules: [
+      {
+        test: /\.(ts|tsx)$/,  // TypeScriptファイルを処理
+        use: 'ts-loader',
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader, // CSS を別ファイルに出力
+          "css-loader", 
+        ],
+      },
       {
         test: /\.(js|jsx|ts|tsx)$/, // どの拡張子にBabel-loaderを適用させるか
         exclude: /node_modules/, // 除外するファイルやディレクトリ
@@ -33,6 +53,7 @@ export default {
               presets: [
                 '@babel/preset-env',  // 最新のJavaScriptを変換
                 '@babel/preset-react',  // JSXを変換
+                '@babel/preset-typescript',
               ],
             },
           },
@@ -40,6 +61,11 @@ export default {
       }
     ]
   },
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "styles.css", // 出力される CSS ファイル名
+    }),
+  ],
   resolve: {
     fallback: {
       'url': false,  // 無効化（Webpack 5 から Node.js のコアモジュールのポリフィルが自動的に含まれなくなった）
