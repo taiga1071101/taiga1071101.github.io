@@ -9,8 +9,6 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "start": "react-scripts start", 
-    "test":"react-scripts test", 
     "eject": "react-scripts eject", 
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist"
