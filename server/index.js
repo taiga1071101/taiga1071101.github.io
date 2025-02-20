@@ -3,11 +3,11 @@ import path from 'path';
 import fs from 'fs';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
-import App from '../src/App.tsx';
+import { App } from '../src/App.tsx';
 import '../src/App.css';
 import '../src/index.css';
 
-App = App.default || App;
+//App = App.default || App;
 
 const __dirname = path.resolve();
 const app = express();

@@ -6,5 +6,10 @@
   ],
   "compilerOptions": {
     "esModuleInterop": true,  // CommonJS/AMD/UMD モジュールを ES6 モジュールと同様に扱う
+    "jsx": "react-jsx",  // 追加または修正
+    "noEmit": false, // ← 追加（バンドル時のエラー回避）
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node"
   }
 }

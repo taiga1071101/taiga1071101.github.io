@@ -1,14 +1,14 @@
-import './App.css'
+import './App.css';
 import React from 'react';
+import SelfIntroduction from './SelfIntroduction';  // 追加
 
 function App() {
   return (
     <>
-      <h1>自己紹介</h1>
-      <p>名前：中山大雅</p>
-      <p>所属：株式会社FPC</p>
+      <SelfIntroduction />  {/* 追加 */}
     </>
-  )
+  );
 }
 
-export default App
+//export default App;
+export { App }

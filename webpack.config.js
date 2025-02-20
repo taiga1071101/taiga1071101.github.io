@@ -33,7 +33,12 @@ export default {
     rules: [
       {
         test: /\.(ts|tsx)$/,  // TypeScriptファイルを処理
-        use: 'ts-loader',
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true,  // 型チェックをスキップ
+          },
+        },
         exclude: /node_modules/,
       },
       {
@@ -44,7 +49,8 @@ export default {
         ],
       },
       {
-        test: /\.(js|jsx|ts|tsx)$/, // どの拡張子にBabel-loaderを適用させるか
+        //test: /\.(js|jsx|ts|tsx)$/, // どの拡張子にBabel-loaderを適用させるか
+        test: /\.(js|jsx)$/, // Babel は JavaScript のみ処理
         exclude: /node_modules/, // 除外するファイルやディレクトリ
         use: [
           {
@@ -67,6 +73,7 @@ export default {
     }),
   ],
   resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.json'],
     fallback: {
       'url': false,  // 無効化（Webpack 5 から Node.js のコアモジュールのポリフィルが自動的に含まれなくなった）
       'path': false,
